@@ -1,0 +1,64 @@
+<!-- 1. What query would you run to get all the countries that speak Slovene. Your query should return the name of the country, language and language percentage. You query should arrange the result by language percentage in descending order.  (1) -->
+
+	use world;
+	select Country.Name, CountryLanguage.Language, CountryLanguage.Percentage
+	from Country
+	left join CountryLanguage on CountryLanguage.CountryCode = Country.Code
+	where CountryLanguage.Language = 'Slovene'
+	order by CountryLanguage.Percentage DESC
+
+<!-- 3. What query would you run to get all the cities in mexico with a population of greater than 500,000. Your query should arrange the result by population in descending order. (1)
+ -->
+	cities in mexico 
+	pop > 500k
+	desc
+
+	select *
+	from City
+	left join Country on City.CountryCode = Country.code
+	Where City.Population > 500000;
+
+<!-- 4. What query would you run to get all language in each country with a percentage greater than 89%. Your query should arrange the result by percentage in descending order. (1)
+ -->
+	find languages in ea country > 89%
+	order by desc
+
+	select Country.Name, CountryLanguage.Language, CountryLanguage.Percentage
+	from Country
+	left join CountryLanguage on CountryLanguage.CountryCode = Country.Code
+	where CountryLanguage.Percentage > 89
+	order by CountryLanguage.Percentage DESC
+
+<!-- 5.  What query woud you run to get all the countries with Surface Area below 501 and Population greater than 100,000. -->
+
+SELECT country.name AS country_name, country.surfacearea, country.population
+FROM country
+WHERE country.surfacearea < 501 AND country.population > 100000
+
+<!-- 6. What query wopuld you run to get all Contitutional Monarchy Countries with a capital greater than 200 
+and a life expectancy greater than 75%.-->
+
+SELECT country.name AS country_name, country.governmentform as government_form, country.capital as country_capital, country.lifeexpectancy 
+FROM country 
+WHERE country.governmentform = 'Constitutional Monarchy' 
+AND country.capital > 200
+AND country.lifeexpectancy > 75
+
+<!-- 7. What query would you run to get all the cities of Argentina inside the Buenos Aires District and have 
+population greater than 500, 000. The query should return the Country Name, City Name, District and Population.-->
+
+SELECT country.name AS country_name, city.name as city_name, city.district, city.population
+FROM city
+LEFT JOIN country ON city.countrycode = country.code
+WHERE country.code = 'ARG'
+AND city.district = 'Buenos Aires'
+AND city.population > 500000
+
+<!-- 8. What query would you run to summarize the number of countries in each region. 
+The query should display the name of the region and the number of countries. 
+Also, the query should arrange the result by number of countries in descending order.-->
+
+
+SELECT country.region AS region, count(country.code) AS country_count FROM country
+GROUP BY country.region
+ORDER BY country_count DESC
